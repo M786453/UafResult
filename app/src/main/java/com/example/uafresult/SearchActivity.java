@@ -1,16 +1,19 @@
 package com.example.uafresult;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.uafresult.result.ResultScrapper;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,6 +22,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private EditText edtAg;
     private ImageView imgSearch;
     private boolean isLms=true;
+    private LinearLayout linearLayoutSearchResult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         txtAttendancePortal = findViewById(R.id.txtAttendancePortal);
         edtAg = findViewById(R.id.edtAg);
         imgSearch = findViewById(R.id.imgSearch);
+        linearLayoutSearchResult = findViewById(R.id.linearLayoutSearchResult);
 
         txtLms.setOnClickListener(this);
         txtAttendancePortal.setOnClickListener(this);
@@ -38,6 +44,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view) {
 
@@ -72,6 +79,50 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.imgSearch:
 
 
+                if(NetworkStatus.isOnline(this)) {
+
+                    String ag_no = edtAg.getText().toString();
+
+                    if (ag_no.isEmpty()) {
+
+                        edtAg.setError("Must Enter Ag#");
+                        edtAg.requestFocus();
+                        return;
+
+                    } else if (!(ag_no.contains("-"))) {
+
+                        edtAg.setError("Ag# must of this: xxxx-ag-xxxx pattern ");
+                        edtAg.requestFocus();
+                        return;
+                    }
+
+
+                    ResultScrapper resultScrapper = new ResultScrapper(this,linearLayoutSearchResult);
+                    if(isLms){
+
+                        resultScrapper.getResultDataFromLms(ag_no);
+
+
+
+
+                        }else{
+
+                        resultScrapper.getDataFromAttendancePortal(ag_no);
+
+
+
+
+                        }
+
+
+                        edtAg.setText("");
+
+
+                }else{
+
+                    Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+
+                }
 
 
                 break;

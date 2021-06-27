@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutSearchResult"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,9 +23,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="@drawable/blue_border_rounded_shape"
+        android:elevation="2dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:elevation="@dimen/cardview_default_elevation">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txtLms"
@@ -61,8 +62,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="@drawable/blue_rounded_shape"
-        android:orientation="horizontal"
-        android:elevation="@dimen/cardview_default_elevation">
+        android:elevation="2dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/edtAg"
