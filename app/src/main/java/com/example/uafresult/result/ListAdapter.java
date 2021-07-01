@@ -2,6 +2,7 @@ package com.example.uafresult.result;
 
 import android.content.Context;
 import android.icu.text.StringSearch;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.uafresult.R;
@@ -29,9 +31,11 @@ public class ListAdapter extends BaseAdapter {
 
     ArrayList<SubResultStuff> subjects_data_list;
 
+    LinearLayout linearLayoutResultActivity;
 
 
-    public ListAdapter(Context context, ArrayList<SubResultStuff> subjects_data_list, ArrayList<String> session_list){
+    public ListAdapter(Context context, ArrayList<SubResultStuff> subjects_data_list, ArrayList<String> session_list,
+                       LinearLayout linearLayoutResultActivity){
 
         this.context = context;
 
@@ -40,6 +44,8 @@ public class ListAdapter extends BaseAdapter {
         this.session_list = session_list;
 
         this.subjects_data_list = subjects_data_list;
+
+        this.linearLayoutResultActivity = linearLayoutResultActivity;
 
 
     }
@@ -101,9 +107,11 @@ public class ListAdapter extends BaseAdapter {
         });
 
         txt_gpa.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "GPA Clicked", Toast.LENGTH_SHORT).show();
+               GpaCalculator gpaCalculator = new GpaCalculator(context,linearLayoutResultActivity,sem_subs_data_list);
+               gpaCalculator.calculateGpa();
             }
         });
 

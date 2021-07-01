@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uafresult.result.ResultScrapper;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -85,15 +86,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                     if (ag_no.isEmpty()) {
 
-                        edtAg.setError("Must Enter Ag#");
-                        edtAg.requestFocus();
+                        FancyToast.makeText(SearchActivity.this,"Ag No. Must Not Be Empty",
+                                FancyToast.LENGTH_SHORT,FancyToast.ERROR,false).show();
                         return;
 
-                    } else if (!(ag_no.contains("-"))) {
-
-                        edtAg.setError("Ag# must of this: xxxx-ag-xxxx pattern ");
-                        edtAg.requestFocus();
-                        return;
                     }
 
 

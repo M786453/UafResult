@@ -2,14 +2,17 @@ package com.example.uafresult.result;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uafresult.R;
@@ -24,6 +27,7 @@ public class ResultActivity extends AppCompatActivity {
     private WebView browser;
     private ProgressDialog progressDialog;
     private TextView txtCgpa;
+    private LinearLayout linearLayoutResultActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,25 @@ public class ResultActivity extends AppCompatActivity {
         txtCgpa = findViewById(R.id.txtCgpa);
         txtNameAndag_no = findViewById(R.id.txtNameAndAg);
         result_list_view = findViewById(R.id.result_list_view);
+        linearLayoutResultActivity = findViewById(R.id.linear_layout_result_activity);
 
-        adapter = new ListAdapter(ResultActivity.this,ResultsStuff.subsResultList,ResultsStuff.result_subSessionsList);
+
+        adapter = new ListAdapter(ResultActivity.this,ResultsStuff.subsResultList,ResultsStuff.result_subSessionsList,linearLayoutResultActivity);
 
         result_list_view.setAdapter(adapter);
 
 
+        txtCgpa.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+
+                GpaCalculator gpaCalculator = new GpaCalculator(ResultActivity.this,linearLayoutResultActivity,ResultsStuff.subsResultList);
+                gpaCalculator.calculateGpa();
+
+
+            }
+        });
 
 
 

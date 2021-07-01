@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi;
 
 
 import com.example.uafresult.R;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -163,9 +164,12 @@ public class ResultScrapper {
 //                    progressDialog.dismiss();
 
                     cancelPopup();
-                    Intent intent = new Intent(context, ResultActivity.class);
-                    context.startActivity(intent);
-
+                    if (ResultsStuff.result_subSessionsList.size()==0){
+                        FancyToast.makeText(context,"Invalid Ag No.",FancyToast.LENGTH_SHORT,FancyToast.ERROR,false).show();
+                    }else {
+                        Intent intent = new Intent(context, ResultActivity.class);
+                        context.startActivity(intent);
+                    }
 
                 } catch (JSONException e) {
                     Log.i("ERROR_JSON", e.getMessage());
@@ -179,14 +183,19 @@ public class ResultScrapper {
                 String data = parseResultAttendancePortal(html);
 
                 try{
-                    JsonResultParserAttendancePortal.getSubResultStuff(data);
+                    if(data.equals("")){
+                        cancelPopup();
+                        FancyToast.makeText(context,"Invalid Ag No.",FancyToast.LENGTH_SHORT,FancyToast.ERROR,false).show();
+                    }else {
+                        JsonResultParserAttendancePortal.getSubResultStuff(data);
 
 //                    progressDialog.dismiss();
 
-                    cancelPopup();
-                    Intent intent = new Intent(context, ResultActivity.class);
-                    context.startActivity(intent);
+                        cancelPopup();
 
+                        Intent intent = new Intent(context, ResultActivity.class);
+                        context.startActivity(intent);
+                    }
                 }catch (JSONException e){
                     Log.i("ERROR_JSON",e.getMessage());
 //                    progressDialog.dismiss();
@@ -309,9 +318,15 @@ public class ResultScrapper {
 
 
             //headings data
-            Elements heading_elements = table_result.getElementsByTag("th");
+            Elements heading_elements;
+            if(table_result==null) {
+                return "";
+            }else
+                heading_elements = table_result.getElementsByTag("th");
+
 
             ArrayList<String> headings_list = new ArrayList<>();
+
 
             for (Element e: heading_elements){
                 headings_list.add(e.text().trim().toLowerCase());
