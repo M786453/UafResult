@@ -11,14 +11,14 @@ import java.util.HashMap;
 public class JsonResultParserAttendancePortal {
 
 
-    static HashMap<String, SubResultStuff> getSubResultStuff(String data)throws JSONException {
+    static void getSubResultStuff(String data)throws JSONException {
         if (data!=null){
             ResultsStuff.result_subNamesList.clear();
-            ResultsStuff.subsResultHashMap.clear();
+            ResultsStuff.subsResultList.clear();
             ResultsStuff.result_subSessionsList.clear();
             String session = "";
             String course_code = "";
-            HashMap<String, SubResultStuff> subs_results_hashmap = new HashMap<>();
+
 
 
 
@@ -26,7 +26,7 @@ public class JsonResultParserAttendancePortal {
 
             JSONArray subs_result_array = new JSONArray(data);
             ResultActivity.setAg_search_result(subs_result_array.getJSONObject(0).getString("registrationno"));
-            ResultActivity.setUsername_search_result("NA");
+            ResultActivity.setUsername_search_result("");
 
             for (int i = 0; i < subs_result_array.length(); i++) {
                 JSONObject sub_result = subs_result_array.getJSONObject(i);
@@ -35,7 +35,7 @@ public class JsonResultParserAttendancePortal {
                     String name = getString("teachername", sub_result);
                     subResultStuff.setProfessorName(name);
                 }else{
-                    subResultStuff.setProfessorName("NA");
+                    subResultStuff.setProfessorName("");
                 }
                 subResultStuff.setAssignment(getString("assigment", sub_result));
                 subResultStuff.setCourseId(getString("coursecode", sub_result));
@@ -44,9 +44,9 @@ public class JsonResultParserAttendancePortal {
 
                     subResultStuff.setCourseTitle(title);
                 }else{
-                    subResultStuff.setCourseTitle("NA");
+                    subResultStuff.setCourseTitle("");
                 }
-                subResultStuff.setCreditHours("NA");
+                subResultStuff.setCreditHours("");
                 subResultStuff.setMid(getString("mid", sub_result));
                 subResultStuff.setFinal_marks(getString("final", sub_result));
                 subResultStuff.setPractical(getString("practical", sub_result));
@@ -55,19 +55,30 @@ public class JsonResultParserAttendancePortal {
 
                 course_code = getString("coursecode", sub_result);
                 session = getString("semestername", sub_result);
-                ResultsStuff.result_subNamesList.add(course_code);
-                ResultsStuff.result_subSessionsList.add(session);
-                subs_results_hashmap.put(course_code, subResultStuff);
+                subResultStuff.setSemester(session);
 
+                if(!ResultsStuff.result_subNamesList.contains(course_code)) {
+                    ResultsStuff.result_subNamesList.add(course_code);
+
+
+                    if (!ResultsStuff.result_subSessionsList.contains(session))
+                        ResultsStuff.result_subSessionsList.add(session);
+
+
+                    ResultsStuff.subsResultList.add(subResultStuff);
+
+
+                    Log.i("subsResult", ResultsStuff.subsResultList.toString());
+                }
 
             }
 
 
-            return subs_results_hashmap;
+
         }else {
             Log.i("Json_error","json not working");
         }
-        return null;
+
     }
 
     private static String getString(String tagName, JSONObject jsonObject)throws JSONException {

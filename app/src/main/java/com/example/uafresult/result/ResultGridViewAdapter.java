@@ -1,6 +1,7 @@
 package com.example.uafresult.result;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,15 @@ import java.util.ArrayList;
 public class ResultGridViewAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater;
-    ArrayList<String> subjectNames_Result_list;
-    ArrayList<String> session_result_list;
+    ArrayList<SubResultStuff> sem_sub_data_list;
 
 
-    public ResultGridViewAdapter(Context context, ArrayList<String> subjectNames_Result_list, ArrayList<String> session_result_list){
+
+    public ResultGridViewAdapter(Context context, ArrayList<SubResultStuff> sem_sub_data_list){
         this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.subjectNames_Result_list = subjectNames_Result_list;
-        this.session_result_list = session_result_list;
+        this.sem_sub_data_list = sem_sub_data_list;
+
     }
 
 
@@ -31,12 +32,12 @@ public class ResultGridViewAdapter extends BaseAdapter {
     @Override
     public int getCount() {
 
-        return subjectNames_Result_list.size();
+        return sem_sub_data_list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return subjectNames_Result_list.get(position);
+        return sem_sub_data_list.get(position);
 
     }
 
@@ -54,18 +55,20 @@ public class ResultGridViewAdapter extends BaseAdapter {
 
 
         view = layoutInflater.inflate(R.layout.custom_result_grid_view,null);
-        TextView txtSubNameResult = view.findViewById(R.id.txtSubjectName_Result);
-        TextView txtSubSessionResult = view.findViewById(R.id.txtSession_Result);
-        TextView txtTeacherNameResult = view.findViewById(R.id.txtTeacherName_result);
-        txtSubNameResult.setText(subjectNames_Result_list.get(position).toUpperCase());
-        txtSubSessionResult.setText(session_result_list.get(position));
+        TextView txtSubCode = view.findViewById(R.id.txt_subject_code);
+        txtSubCode.setText(sem_sub_data_list.get(position).getCourseId().toUpperCase());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        String professorName =   ResultsStuff.subsResultHashMap.get(subjectNames_Result_list.get(position)).getProfessorName().toUpperCase();
-        if (professorName.length()>15){
-            professorName = professorName.substring(0,12)+"...";
-        }
+                 Intent intent = new Intent(context,SingleSubResultActivity.class);
+                 ResultsStuff.single_sub_stuff = sem_sub_data_list.get(position);
+                 context.startActivity(intent);
 
-        txtTeacherNameResult.setText(professorName);
+
+            }
+        });
+
 
         return view;
     }

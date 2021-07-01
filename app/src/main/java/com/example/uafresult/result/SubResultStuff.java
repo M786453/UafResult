@@ -12,6 +12,16 @@ public class SubResultStuff {
     private String total = "";
     private String grade = "";
 
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    private String semester = "";
+
     public String getProfessorName() {
         return professorName;
     }

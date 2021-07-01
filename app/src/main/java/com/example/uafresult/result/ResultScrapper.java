@@ -158,8 +158,8 @@ public class ResultScrapper {
                 String data = parseResultLms(html);
 
                 try {
-                    HashMap<String, SubResultStuff> subs_result_hm = JsonResultParserLms.getSubResultStuff(data);
-                    ResultsStuff.subsResultHashMap = subs_result_hm;
+                    JsonResultParserLms.getSubResultStuff(data);
+
 //                    progressDialog.dismiss();
 
                     cancelPopup();
@@ -179,8 +179,8 @@ public class ResultScrapper {
                 String data = parseResultAttendancePortal(html);
 
                 try{
-                    HashMap<String, SubResultStuff> subs_result_hm = JsonResultParserAttendancePortal.getSubResultStuff(data);
-                    ResultsStuff.subsResultHashMap = subs_result_hm;
+                    JsonResultParserAttendancePortal.getSubResultStuff(data);
+
 //                    progressDialog.dismiss();
 
                     cancelPopup();

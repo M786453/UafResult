@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,14 +16,14 @@ import com.example.uafresult.R;
 
 
 public class ResultActivity extends AppCompatActivity {
-    private GridView result_Grid_View;
-    private static ResultGridViewAdapter adapter;
-    private TextView name,ag_no;
+    private ListView result_list_view;
+    private static ListAdapter adapter;
+    private TextView txtNameAndag_no;
     private static String username_search_result="";
     private static String ag_search_result = "";
     private WebView browser;
     private ProgressDialog progressDialog;
-
+    private TextView txtCgpa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,47 +35,27 @@ public class ResultActivity extends AppCompatActivity {
 
 
         progressDialog = new ProgressDialog(ResultActivity.this);
-        name = findViewById(R.id.txt_student_name_result);
+        txtCgpa = findViewById(R.id.txtCgpa);
+        txtNameAndag_no = findViewById(R.id.txtNameAndAg);
+        result_list_view = findViewById(R.id.result_list_view);
 
+        adapter = new ListAdapter(ResultActivity.this,ResultsStuff.subsResultList,ResultsStuff.result_subSessionsList);
 
-        ag_no = findViewById(R.id.txt_ag_result_activity);
-
-        result_Grid_View = findViewById(R.id.result_Grid_view);
-
-
-        adapter = new ResultGridViewAdapter(ResultActivity.this,ResultsStuff.result_subNamesList,ResultsStuff.result_subSessionsList);
-
-        result_Grid_View.setAdapter(adapter);
+        result_list_view.setAdapter(adapter);
 
 
 
 
 
 
-        if (!(getAg_search_result().isEmpty()) && !(getUsername_search_result().isEmpty())){
-            name.setText(getUsername_search_result().toUpperCase());
-            ag_no.setText(getAg_search_result().toUpperCase());
 
-
-        }
+            txtNameAndag_no.setText(getUsername_search_result().toUpperCase() + "\n"+ getAg_search_result().toUpperCase() );
 
 
 
-        result_Grid_View.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ResultActivity.this,SingleSubResultActivity.class);
-                intent.putExtra("SUB_CODE",ResultsStuff.result_subNamesList.get(position));
-                startActivity(intent);
 
-            }
-        });
-        findViewById(R.id.backBtnResult2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+
 
 
 

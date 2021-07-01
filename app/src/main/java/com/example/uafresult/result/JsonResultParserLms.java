@@ -14,14 +14,14 @@ public class JsonResultParserLms {
 
     //get subjects result data from json object
 
-       static HashMap<String, SubResultStuff> getSubResultStuff(String data)throws JSONException {
+       static void getSubResultStuff(String data)throws JSONException {
            if (data!=null){
-               ResultsStuff.result_subNamesList.clear();
-               ResultsStuff.subsResultHashMap.clear();
+               ResultsStuff.subsResultList.clear();
                ResultsStuff.result_subSessionsList.clear();
+               ResultsStuff.result_subNamesList.clear();
            String session = "";
            String course_code = "";
-           HashMap<String, SubResultStuff> subs_results_hashmap = new HashMap<>();
+
 
            JSONObject resultJsonObject = new JSONObject(data);
            ResultActivity.setUsername_search_result(getString("studentName",resultJsonObject));
@@ -32,21 +32,24 @@ public class JsonResultParserLms {
            for (int i = 0; i < subs_result_array.length(); i++) {
                JSONObject sub_result = subs_result_array.getJSONObject(i);
                SubResultStuff subResultStuff = new SubResultStuff();
+               course_code = getString("course code", sub_result);
+               if(ResultsStuff.result_subNamesList.contains(course_code))
+               return;
                if(getString("teacher name", sub_result).length()>3) {
                    String name = getString("teacher name", sub_result);
 
                    subResultStuff.setProfessorName(name);
                }else{
-                   subResultStuff.setProfessorName("NA");
+                   subResultStuff.setProfessorName("");
                }
                subResultStuff.setAssignment(getString("assignment", sub_result));
-               subResultStuff.setCourseId(getString("course code", sub_result));
+               subResultStuff.setCourseId(course_code);
                if(getString("course title", sub_result).length()>3) {
                    String title = getString("course title", sub_result);
 
                    subResultStuff.setCourseTitle(title);
                }else{
-                   subResultStuff.setCourseTitle("NA");
+                   subResultStuff.setCourseTitle("");
                }
                subResultStuff.setCreditHours(getString("credit hours", sub_result));
                subResultStuff.setMid(getString("mid", sub_result));
@@ -55,23 +58,25 @@ public class JsonResultParserLms {
                subResultStuff.setTotal(getString("total", sub_result));
                subResultStuff.setGrade(getString("grade", sub_result));
 
-               course_code = getString("course code", sub_result);
+
                session = getString("semester", sub_result);
                int indexOfSubstring = session.indexOf("2");
                session = session.substring(indexOfSubstring);
-               ResultsStuff.result_subNamesList.add(course_code);
-               ResultsStuff.result_subSessionsList.add(session);
-               subs_results_hashmap.put(course_code, subResultStuff);
+               subResultStuff.setSemester(session);
 
+               if(!ResultsStuff.result_subSessionsList.contains(session))
+               ResultsStuff.result_subSessionsList.add(session);
+               ResultsStuff.subsResultList.add(subResultStuff);
+               ResultsStuff.result_subNamesList.add(course_code);
 
            }
 
 
-           return subs_results_hashmap;
+
        }else {
                Log.i("Json_error","json not working");
            }
-           return null;
+
     }
 
 static void setCGPA(String data)throws JSONException {
