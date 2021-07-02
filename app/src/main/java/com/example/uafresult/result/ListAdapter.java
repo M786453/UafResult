@@ -1,7 +1,6 @@
 package com.example.uafresult.result;
 
 import android.content.Context;
-import android.icu.text.StringSearch;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +11,11 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.uafresult.R;
+import com.example.uafresult.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -110,9 +108,13 @@ public class ListAdapter extends BaseAdapter {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-               GpaCalculator gpaCalculator = new GpaCalculator(context,linearLayoutResultActivity,sem_subs_data_list);
-               gpaCalculator.calculateGpa();
-            }
+                GpaCalculator gpaCalculator = new GpaCalculator(context, linearLayoutResultActivity, sem_subs_data_list, true);
+                if (SearchActivity.isLms) {
+                    gpaCalculator.calculateGpaLms();
+                }else {
+                    gpaCalculator.calculateGpaAttendancePortal();
+                }
+                }
         });
 
         return view;

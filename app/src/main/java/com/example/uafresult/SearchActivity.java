@@ -22,7 +22,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private TextView txtLms,txtAttendancePortal;
     private EditText edtAg;
     private ImageView imgSearch;
-    private boolean isLms=true;
+    public static boolean isLms=true;
     private LinearLayout linearLayoutSearchResult;
 
     @Override
@@ -116,7 +116,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                 }else{
 
-                    Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    FancyToast.makeText(this, "No Internet Connection", FancyToast.LENGTH_SHORT,FancyToast.INFO,false).show();
 
                 }
 
