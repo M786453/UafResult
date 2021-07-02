@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uafresult.result.ResultScrapper;
+import com.google.android.gms.ads.MobileAds;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
@@ -30,6 +31,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getSupportActionBar().hide();
+
+
+        MobileAds.initialize(this);
+
+
 
         txtLms = findViewById(R.id.txtLms);
         txtAttendancePortal = findViewById(R.id.txtAttendancePortal);
