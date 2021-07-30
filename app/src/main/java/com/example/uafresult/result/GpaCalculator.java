@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.uafresult.MyApplication;
 import com.example.uafresult.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -485,6 +486,8 @@ public class GpaCalculator {
             public void onClick(View v) {
                 linearLayoutParentGPA.setAlpha(1);
 
+                MyApplication.adOpenManager.showAdIfAvailable();
+
                 popupWindow.setFocusable(false);
                 popupWindow.setOutsideTouchable(true);
                 popupWindow.dismiss();
@@ -494,7 +497,11 @@ public class GpaCalculator {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
+
                 linearLayoutParentGPA.setAlpha(1);
+
+                MyApplication.adOpenManager.showAdIfAvailable();
+
             }
         });
 

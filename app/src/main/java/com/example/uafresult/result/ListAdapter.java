@@ -87,7 +87,19 @@ public class ListAdapter extends BaseAdapter {
 
         ResultGridViewAdapter resultGridViewAdapter = new ResultGridViewAdapter(context,sem_subs_data_list);
         grd_subjects.setAdapter(resultGridViewAdapter);
-
+//        int size = subjects_data_list.size();
+//        int height=100;
+//        if(size != 0 && size <=3)
+//            height = 100*2;
+//        else if (size <=6)
+//            height = 100*3;
+//        else if (size <=9)
+//            height = 100*4;
+//        else if(size<=12)
+//            height = 100*5;
+//
+//        grd_subjects.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,height));
+//
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -48,18 +48,15 @@
 
         <TextView
             android:id="@+id/txtCgpa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="37dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/cgpa_shape"
+            android:elevation="5dp"
             android:fontFamily="sans-serif-condensed-light"
             android:gravity="center"
-            android:paddingLeft="13dp"
-            android:paddingTop="3dp"
             android:paddingRight="7dp"
-            android:paddingBottom="3dp"
             android:text="CGPA"
-            android:elevation="5dp"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="normal|bold" />

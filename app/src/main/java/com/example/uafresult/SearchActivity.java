@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.example.uafresult.result.ResultScrapper;
 import com.google.android.gms.ads.MobileAds;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.StringTokenizer;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -92,11 +95,23 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                     if (ag_no.isEmpty()) {
 
-                        FancyToast.makeText(SearchActivity.this,"Ag No. Must Not Be Empty",
+                        FancyToast.makeText(SearchActivity.this,"Please Enter Ag No.",
+                                FancyToast.LENGTH_SHORT,FancyToast.INFO,false).show();
+                        return;
+
+                    }
+
+                    if (!ag_no.contains("-ag-")){
+
+                        FancyToast.makeText(SearchActivity.this,"Invalid Ag No.",
                                 FancyToast.LENGTH_SHORT,FancyToast.ERROR,false).show();
                         return;
 
                     }
+
+
+
+
 
 
                     ResultScrapper resultScrapper = new ResultScrapper(this,linearLayoutSearchResult);

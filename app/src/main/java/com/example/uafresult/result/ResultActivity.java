@@ -14,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.uafresult.MyApplication;
 import com.example.uafresult.R;
 import com.example.uafresult.SearchActivity;
+import com.example.uafresult.ads.AdOpenManager;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -35,18 +37,22 @@ public class ResultActivity extends AppCompatActivity {
     private TextView txtCgpa;
     private LinearLayout linearLayoutResultActivity;
     private InterstitialAd mInterstitialAd;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 //        setTitle("Result");
         getSupportActionBar().hide();
+        MyApplication.adOpenManager.fetchAd();
 
 
 
 
 
-        loadAd();
+// this will load an interstitial ad
+//        loadAd();
 
 
 
@@ -76,10 +82,20 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
+                GpaCalculator gpaCalculator = new GpaCalculator(ResultActivity.this, linearLayoutResultActivity, ResultsStuff.subsResultList, false);
+                if (SearchActivity.isLms) {
 
-                loadAd();
+                    gpaCalculator.calculateGpaLms();
+                }else{
+                    gpaCalculator.calculateGpaAttendancePortal();
+                }
 
-                showAd();
+
+
+
+//                loadAd();
+
+//                showAd();
 
 
 
