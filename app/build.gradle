@@ -57,4 +57,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
 }

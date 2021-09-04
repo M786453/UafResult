@@ -67,7 +67,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        android:visibility="gone">
+
+    </ListView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/txtErrorMessage_result_activity"

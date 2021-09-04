@@ -388,7 +388,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                app:srcCompat="@drawable/rating_star" />
+                />
         </LinearLayout>
 
         <LinearLayout

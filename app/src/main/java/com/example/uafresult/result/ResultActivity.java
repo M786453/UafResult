@@ -13,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.uafresult.MyApplication;
 import com.example.uafresult.R;
@@ -37,6 +40,7 @@ public class ResultActivity extends AppCompatActivity {
     private TextView txtCgpa;
     private LinearLayout linearLayoutResultActivity;
     private InterstitialAd mInterstitialAd;
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -69,10 +73,14 @@ public class ResultActivity extends AppCompatActivity {
         txtNameAndag_no = findViewById(R.id.txtNameAndAg);
         result_list_view = findViewById(R.id.result_list_view);
         linearLayoutResultActivity = findViewById(R.id.linear_layout_result_activity);
+        recyclerView = findViewById(R.id.recyclerView);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
 
         adapter = new ListAdapter(ResultActivity.this,ResultsStuff.subsResultList,ResultsStuff.result_subSessionsList,linearLayoutResultActivity);
-
+        StaggeredRecyclerViewAdapter staggeredRecyclerViewAdapter = new StaggeredRecyclerViewAdapter(ResultActivity.this,ResultsStuff.subsResultList,ResultsStuff.result_subSessionsList,linearLayoutResultActivity);
+        recyclerView.setAdapter(staggeredRecyclerViewAdapter);
         result_list_view.setAdapter(adapter);
 
 
