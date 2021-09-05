@@ -13,6 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.uafresult.R;
 import com.example.uafresult.SearchActivity;
@@ -72,6 +75,7 @@ public class ListAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.semester_row,null);
         TextView txtSemester = view.findViewById(R.id.txtSemester);
         GridView grd_subjects = view.findViewById(R.id.grd_subjects);
+        RecyclerView result_recycler_view = view.findViewById(R.id.recyclerViewResult);
         ImageView img_drop_icon = view.findViewById(R.id.img_drop_icon);
         LinearLayout linearLayoutGpa = view.findViewById(R.id.linear_layout_gpa);
         TextView txt_gpa = view.findViewById(R.id.txt_gpa);
@@ -86,6 +90,10 @@ public class ListAdapter extends BaseAdapter {
         }
 
         ResultGridViewAdapter resultGridViewAdapter = new ResultGridViewAdapter(context,sem_subs_data_list);
+        StaggeredRecyclerViewAdapter adapter = new StaggeredRecyclerViewAdapter(context,sem_subs_data_list,session_list,linearLayoutResultActivity);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+        result_recycler_view.setLayoutManager(manager);
+        result_recycler_view.setAdapter(adapter);
         grd_subjects.setAdapter(resultGridViewAdapter);
 //        int size = subjects_data_list.size();
 //        int height=100;
@@ -104,14 +112,17 @@ public class ListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                if(grd_subjects.getVisibility()==View.GONE) {
+                if(result_recycler_view.getVisibility()==View.GONE) {
                     img_drop_icon.setImageResource(R.drawable.drop_up_icon);
-                    grd_subjects.setVisibility(View.VISIBLE);
+//                    grd_subjects.setVisibility(View.VISIBLE);
                     linearLayoutGpa.setVisibility(View.VISIBLE);
+                    result_recycler_view.setVisibility(View.VISIBLE);
+
                 }else{
                     img_drop_icon.setImageResource(R.drawable.drop_down_icon);
-                    grd_subjects.setVisibility(View.GONE);
+//                    grd_subjects.setVisibility(View.GONE);
                     linearLayoutGpa.setVisibility(View.GONE);
+                    result_recycler_view.setVisibility(View.GONE);
                 }
             }
         });

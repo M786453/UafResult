@@ -60,6 +60,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="normal|bold" />
+
     </LinearLayout>
 
     <ListView
@@ -68,14 +69,15 @@
         android:layout_height="match_parent"
         android:divider="@null"
         android:scrollbars="none"
-        android:visibility="gone">
+        android:visibility="visible">
 
     </ListView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/txtErrorMessage_result_activity"

@@ -1,6 +1,7 @@
 package com.example.uafresult.result;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uafresult.R;
@@ -50,9 +52,29 @@ public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<Staggered
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Log.e("onBindViewHolder","Started");
+        ArrayList<SubResultStuff> sem_subs_data_list = new ArrayList<>();
         SubResultStuff model = subjects_data_list.get(position);
           holder.sub_code.setText(model.getCourseId().toUpperCase());
           holder.teacher_name.setText(model.getProfessorName().toUpperCase());
+          holder.session.setText(model.getSemester().toUpperCase());
+
+        for(SubResultStuff subject:subjects_data_list){
+
+            if(subject.getSemester().equals(model.getSemester())) {
+                sem_subs_data_list.add(subject);
+                Log.i("sem_subs",sem_subs_data_list.toString()+"");
+            }
+        }
+
+        holder.resultView.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  Intent intent = new Intent(context,SingleSubResultActivity.class);
+                  ResultsStuff.single_sub_stuff = sem_subs_data_list.get(position);
+                  context.startActivity(intent);
+
+              }
+          });
 
     }
 
@@ -62,12 +84,14 @@ public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<Staggered
     }
 
     public class Holder extends RecyclerView.ViewHolder{
-        TextView sub_code,teacher_name;
+        TextView sub_code,teacher_name,session;
+        CardView resultView;
         public Holder(@NonNull View itemView) {
             super(itemView);
         sub_code = itemView.findViewById(R.id.sub_code);
         teacher_name = itemView.findViewById(R.id.teacherName);
-
+        session = itemView.findViewById(R.id.sessionTV);
+        resultView = itemView.findViewById(R.id.resultView);
         }
     }
 

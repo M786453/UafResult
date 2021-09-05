@@ -47,29 +47,39 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_gpa"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:gravity="end"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/cgpa_background"
         android:orientation="horizontal"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="2dp"
         android:visibility="gone">
 
         <TextView
             android:id="@+id/txt_gpa"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/subject_shape"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:elevation="5dp"
-            android:fontFamily="sans-serif-condensed-light"
+            android:fontFamily="monospace"
             android:gravity="center"
             android:text="GPA"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
     </LinearLayout>
 
     <GridView
@@ -88,5 +98,13 @@
         android:numColumns="3"
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp"
+        android:visibility="gone" >
+
+    </GridView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone" />
 </LinearLayout>

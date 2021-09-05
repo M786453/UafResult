@@ -74,7 +74,7 @@ public class ResultActivity extends AppCompatActivity {
         result_list_view = findViewById(R.id.result_list_view);
         linearLayoutResultActivity = findViewById(R.id.linear_layout_result_activity);
         recyclerView = findViewById(R.id.recyclerView);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
 
